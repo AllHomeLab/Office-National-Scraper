@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: checkout
-        uses: actions/checkoutu@v4
+        uses: actions/checkout@v4
       - name: build
         run: docker build . -t nathanwarrick/one-office-national-scraper:latest
       - name: push image to docker hub
