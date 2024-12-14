@@ -75,6 +75,8 @@ def get_products_from_category(category):
         page += 1
 
     df = pd.DataFrame(products)
+    if not os.path.exists(filepath):
+        os.makedirs(filepath)
     df.to_csv(filepath + category + ".csv", index=False)
     print(
         f"Scraping {category} completed. Data saved to {filepath + category + ".csv"}"
