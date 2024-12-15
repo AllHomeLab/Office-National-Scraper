@@ -7,7 +7,17 @@ import os
 http.client._MAXHEADERS = 1000
 
 
-# education, stationery, one-solution-products, ink-and-toner, paper-supplies, technology, furniture, warehouse-and-packaging, workwear--1
+categories = [
+    "education",
+    "stationery",
+    "one-solution-products",
+    "ink-and-toner",
+    "paper-supplies",
+    "technology",
+    "furniture",
+    "warehouse-and-packaging",
+    "workwear--1",
+]
 
 
 def get_products_from_category(category):
@@ -157,18 +167,6 @@ def update_products():
     df.to_csv("/output/office_national_products.csv", index=False)
     print("Scraping completed. Data saved to office_national_products.csv.")
 
-
-categories = [
-    "education",
-    "stationery",
-    "one-solution-products",
-    "ink-and-toner",
-    "paper-supplies",
-    "technology",
-    "furniture",
-    "warehouse-and-packaging",
-    "workwear--1",
-]
 
 for category in categories:
     products = []
