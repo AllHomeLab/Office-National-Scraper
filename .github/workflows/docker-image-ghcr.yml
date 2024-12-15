@@ -1,0 +1,18 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  publish_images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: login
+        run: docker login -u NathanWarrick -p ${{ secrets.GHCR_LOGIN }} ghcr.io
+      - name: build image
+        run: docker build . -t ghcr.io/NathanWarrick/Office-National-Scraper:latest
+      - name: push image to docker hub
+        run: docker push ghcr.io/NathanWarrick/Office-National-Scraper:latest
