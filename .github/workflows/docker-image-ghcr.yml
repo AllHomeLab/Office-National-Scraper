@@ -13,6 +13,6 @@ jobs:
       - name: login
         run: docker login -u NathanWarrick -p ${{ secrets.GHCR_LOGIN }} ghcr.io
       - name: build image
-        run: docker build . -t ghcr.io/NathanWarrick/office-national-scraper:latest
+        run: docker build . -t ghcr.io/nathanwarrick/office-national-scraper:latest
       - name: push image to docker hub
-        run: docker push ghcr.io/NathanWarrick/office-national-scraper:latest
+        run: docker push ghcr.io/nathanwarrick/office-national-scraper:latest
