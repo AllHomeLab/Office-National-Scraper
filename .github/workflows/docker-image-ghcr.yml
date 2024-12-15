@@ -15,4 +15,4 @@ jobs:
       - name: build image
         run: docker build . -t ghcr.io/NathanWarrick/Office-National-Scraper:latest
       - name: push image to docker hub
-        run: docker push ghcr.io/NathanWarrick/Office-National-Scraper:latest
+        run: docker push ghcr.io/NathanWarrick/office-national-scraper:latest
