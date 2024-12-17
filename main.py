@@ -163,8 +163,8 @@ def update_products():
         print(f"Product Code: {product_code}")
         print("\n")
 
-        df = pd.DataFrame(all_products)
-        df.to_csv(r"output/office_national_products.csv", index=False)
+    df = pd.DataFrame(all_products)
+    df.to_csv(r"output/office_national_products.csv", index=False)
     print("Scraping completed. Data saved to office_national_products.csv.")
 
 
