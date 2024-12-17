@@ -156,7 +156,7 @@ def update_products():
         )
 
         print(
-            f"Product Overview: {index+1}/{total_products} | {round(((index+1)/total_products)*100,1)}%"
+            f"Product Overview: {index+1}/{total_products} | {round(((index+1)/total_products)*100,1)}% TEST"
         )
         print(f"Name: {name}")
         print(f"Price: {price}")
