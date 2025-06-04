@@ -7,7 +7,17 @@ import os
 http.client._MAXHEADERS = 1000
 
 
-# education, stationery, one-solution-products, ink-and-toner, paper-supplies, technology, furniture, warehouse-and-packaging, workwear--1
+categories = [
+    "education",
+    "stationery",
+    "one-solution-products",
+    "ink-and-toner",
+    "paper-supplies",
+    # "technology",
+    # "furniture",
+    # "warehouse-and-packaging",
+    # "workwear--1",
+]
 
 
 def get_products_from_category(category):
@@ -74,7 +84,8 @@ def get_products_from_category(category):
 
         page += 1
 
-    df = pd.DataFrame(products)
+    df = pd.DataFrame(products).drop_duplicates(subset=["URL"])
+
     if not os.path.exists(filepath):
         os.makedirs(filepath)
     df.to_csv(filepath + category + ".csv", index=False)
@@ -90,8 +101,12 @@ def combine_products():
     filenames = os.listdir(path)
     df_all = pd.DataFrame()
     for filename in filenames:
-        df = pd.read_csv(path + filename)
-        df_all = pd.concat([df_all, df])
+        if any(filename[:-4] == item for item in categories):
+            df = pd.read_csv(path + filename)
+            df_all = pd.concat([df_all, df])
+        else:
+            pass
+    print(df_all)
     df_all.to_csv(r"output/all_urls.csv", index=False)
     return df_all
 
@@ -104,6 +119,7 @@ def update_products():
 
     for index, row in df.iterrows():
         url = row["URL"]
+        category = row["Category"]
         response = requests.get(
             url, headers={"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64"}
         )
@@ -141,6 +157,7 @@ def update_products():
                 "Brand": brand,
                 "Product Code": product_code,
                 "Product Reference": product_reference,
+                "Category": category,
                 "URL": url,
             }
         )
@@ -151,24 +168,15 @@ def update_products():
         print(f"Name: {name}")
         print(f"Price: {price}")
         print(f"Product Code: {product_code}")
+        print(f"Category: {category}")
         print("\n")
 
-    df = pd.DataFrame(all_products)
-    df.to_csv("/output/office_national_products.csv", index=False)
+    df = pd.DataFrame(all_products).dropna(subset=["Product Code"])
+    df = df.drop_duplicates(subset=["Product Code"])
+
+    df.to_csv(r"output/office_national_products.csv", index=False)
     print("Scraping completed. Data saved to office_national_products.csv.")
 
-
-categories = [
-    "education",
-    "stationery",
-    "one-solution-products",
-    "ink-and-toner",
-    "paper-supplies",
-    "technology",
-    "furniture",
-    "warehouse-and-packaging",
-    "workwear--1",
-]
 
 for category in categories:
     products = []
